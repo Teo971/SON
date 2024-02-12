@@ -1,5 +1,6 @@
 # SON
 Objectifs:
+
 - Modifier le pitch
 - Modifier la longueur d'une note/fréquence
 - Modifier le timbre ( reste à savoir comment)
@@ -10,3 +11,5 @@ Objectifs:
 - Objectifs partie 3:
   - Jouer avec les canaux pour varier les effets
   - Réussir à récupérer les paramètres d'une voix pour la cloner au mieux possible (reste à savoir si c'est possible sans IA)
+# BUT FINAL
+Réussir à faire différents effets de voix(radio, films années 80, robots...)
