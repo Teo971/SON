@@ -12,8 +12,8 @@ Objectifs:
   - Jouer avec les canaux pour varier les effets
   - Réussir à récupérer les paramètres d'une voix pour la cloner au mieux possible (reste à savoir si c'est possible sans IA)
 
-Pour les presets utiliser un potentiomètre
-pour le volume un potentiometre,
-Bonus: bouton pour couper le son.
+- Pour les presets utiliser un potentiomètre
+- pour le volume un potentiometre,
+- Bonus: bouton pour couper le son.
 # BUT FINAL
 Réussir à faire différents effets de voix(radio, films années 80, robots...)
