@@ -10,10 +10,19 @@ with {
     d = i : (+ : +(w) : fmod(_,w)) ~ _;
 };
 
-pitchsifter = transpose(
-                        nentry("window", 1000, 50, 10000, 1),
-                        nentry("xfade", 10, 1, 10000, 1),
-                        nentry("shift", 0, -12, +12, 0.1)
-                        );
+filtre = vgroup("Filtre", fi.bandpass(1,hslider("fl", 200, 0, 20000, 10),hslider("fu", 8000, 0, 20000, 10)));
 
-process = pitchsifter <: _,_ ;
+pitchsifter = vgroup("Pitch", transpose(
+                        hslider("window", 1000, 50, 10000, 1),
+                        hslider("xfade", 10, 1, 10000, 1),
+                        hslider("shift", 0, -12, +12, 0.1)
+ ) );
+
+reverb = vgroup("Reverb", re.mono_freeverb(
+                        hslider("fb1", 0.5, 0, 1, 0.01),
+                        hslider("fb2", 0.5, 0, 1, 0.01),
+                        hslider("damp", 0.5, 0, 1, 0.01),
+                        hslider("spread", 0.5, 0, 1, 0.01)
+                        ));
+
+process = filtre : pitchsifter : reverb <: _,_ ;
