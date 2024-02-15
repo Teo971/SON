@@ -26,3 +26,15 @@ reverb = vgroup("Reverb", re.mono_freeverb(
                         ));
 
 process = filtre : pitchsifter : reverb <: _,_ ;
+
+VOIX RADIO:
+filtrehigh = fi.highpass(1,800);
+distortion = dm.cubicnl_demo;
+
+filtre1 = fi.bandpass(1,0,99);
+filtre2 = fi.bandpass(1,101,899);
+filtre3 = fi.bandpass(1,901,2499);
+equalizer = filtre1*(-5), filtre2*(-12), filtre3*(-40);
+
+process = _<: distortion <: equalizer :> _ <: pitchshifter <: _,_;
+// effet radio : process = _<: distortion <: equalizer :> _ <: pitchshifter <: _,_;
