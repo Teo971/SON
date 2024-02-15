@@ -37,4 +37,5 @@ filtre3 = fi.bandpass(1,901,2499);
 equalizer = filtre1*(-5), filtre2*(-12), filtre3*(-40);
 
 process = _<: distortion <: equalizer :> _ <: pitchshifter <: _,_;
-// effet radio : process = _<: distortion <: equalizer :> _ <: pitchshifter <: _,_;
+// effet radio : process = _<: distortion <: equalizer :> _ <: pitchshifter <: _,_; peux modifier drive pour amplifier le son
+// mais faire gaffe à ses oreilles pitchshifter sert pour donner voix aïgue ou grave 
