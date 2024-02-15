@@ -19,6 +19,6 @@ Objectifs:
 Réussir à faire différents effets de voix(radio, films années 80, robots...)
 
 
-##voix vieux ciné
+## Voix vieux ciné
 Si tu veux retrouver le "son" des années 50, il suffit (?) de tenir compte de l'effet de la courbe académique propre à la bande ciné optique, soit une atténuation des fréquences aigues à partir de 4 kHz avec une pente de 6 dBs par octave. L'effet peut être renforcé en boostant un peu la partie médium du spectre vers 2 kHz. Pour faire plus vrai, ajouter une pincée de grattes genre griffes vinyl ou pourquoi pas carrément des drops.
 
