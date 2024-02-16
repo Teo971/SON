@@ -10,32 +10,29 @@ with {
     d = i : (+ : +(w) : fmod(_,w)) ~ _;
 };
 
-filtre = vgroup("Filtre", fi.bandpass(1,hslider("fl", 200, 0, 20000, 10),hslider("fu", 8000, 0, 20000, 10)));
+filtre = fi.bandpass(1,nentry("low", 200, 0, 20000, 10),nentry("up", 8000, 0, 20000, 10));
 
-pitchsifter = vgroup("Pitch", transpose(
-                        hslider("window", 1000, 50, 10000, 1),
-                        hslider("xfade", 10, 1, 10000, 1),
-                        hslider("shift", 0, -12, +12, 0.1)
+pitchshifter = vgroup("Pitch", transpose(
+                        nentry("window", 1000, 50, 10000, 1),
+                        nentry("xfade", 10, 1, 10000, 1),
+                        nentry("shift", 0, -12, +12, 0.1)
  ) );
 
 reverb = vgroup("Reverb", re.mono_freeverb(
-                        hslider("fb1", 0.5, 0, 1, 0.01),
-                        hslider("fb2", 0.5, 0, 1, 0.01),
-                        hslider("damp", 0.5, 0, 1, 0.01),
-                        hslider("spread", 0.5, 0, 1, 0.01)
+                        nentry("fb1", 0, 0, 1, 0.01),
+                        nentry("fb2", 0, 0, 1, 0.01),
+                        nentry("damp", 0.5, 0, 1, 0.01),
+                        nentry("spread", 0.5, 0, 1, 0.01)
                         ));
 
-process = filtre : pitchsifter : reverb <: _,_ ;
+filtrehigh = fi.highpass(1,800); //fi.highpass(1,nentry("high", 800, 0, 20000, 1));
 
-VOIX RADIO:
-filtrehigh = fi.highpass(1,800);
-distortion = dm.cubicnl_demo;
 
-filtre1 = fi.bandpass(1,0,99);
-filtre2 = fi.bandpass(1,101,899);
-filtre3 = fi.bandpass(1,901,2499);
-equalizer = filtre1*(-5), filtre2*(-12), filtre3*(-40);
+distortion = dm.cubicnl_demo; //cubicnl(nentry("drive", 0, 0, 1, 0.01),nentry("offset", 0, 0, 1, 0.01));
+
+filtre1 = fi.bandpass(1,0,99); //fi.bandpass(1,nentry("low1", 0, 0, 20000, 1),nentry("up1", 99, 0, 20000, 1));
+filtre2 = fi.bandpass(1,101,899); //fi.bandpass(1,nentry("low2", 101, 0, 20000, 1),nentry("up2", 899, 0, 20000, 1));
+filtre3 = fi.bandpass(1,901,2499); //fi.bandpass(1,nentry("low3", 901, 0, 20000, 1),nentry("up3", 2499, 0, 20000, 1));
+equalizer = filtre1*(-5), filtre2*(-12), filtre3*(-40); //filtre1*nentry("x1", -5, -100, 100, 1), filtre2*nentry("x2", -12, -100, 100, 1), filtre3*nentry("x3", -40, -100, 100, 1); 
 
 process = _<: distortion <: equalizer :> _ <: pitchshifter <: _,_;
-// effet radio : process = _<: distortion <: equalizer :> _ <: pitchshifter <: _,_; peux modifier drive pour amplifier le son
-// mais faire gaffe à ses oreilles pitchshifter sert pour donner voix aïgue ou grave 
