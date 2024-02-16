@@ -28,11 +28,11 @@ reverb = vgroup("Reverb", re.mono_freeverb(
 filtrehigh = fi.highpass(1,nentry("high", 800, 0, 20000, 1));
 
 
-distortion = cubicnl(nentry("drive", 0, 0, 1, 0.01),nentry("offset", 0, 0, 1, 0.01));
+distortion = ef.cubicnl(nentry("drive", 0, 0, 1, 0.01),nentry("offset", 0, 0, 1, 0.01));
 
 filtre1 = fi.bandpass(1,nentry("low1", 0, 0, 20000, 1),nentry("up1", 99, 0, 20000, 1));
 filtre2 = fi.bandpass(1,nentry("low2", 101, 0, 20000, 1),nentry("up2", 899, 0, 20000, 1));
 filtre3 = fi.bandpass(1,nentry("low3", 901, 0, 20000, 1),nentry("up3", 2499, 0, 20000, 1));
 equalizer = filtre1*nentry("x1", -5, -100, 100, 1), filtre2*nentry("x2", -12, -100, 100, 1), filtre3*nentry("x3", -40, -100, 100, 1); 
 
-process = _<: distortion <: equalizer :> _ <: pitchshifter <: _,_;
+process = _<: distortion <: equalizer :> _ <: pitchshifter : reverb <: _,_;
