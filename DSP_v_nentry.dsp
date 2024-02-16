@@ -10,7 +10,7 @@ with {
     d = i : (+ : +(w) : fmod(_,w)) ~ _;
 };
 
-filtre = fi.lowpass(1,nentry("low", 200, 0, 20000, 10))*nentry("xf_low", -100, -100, 100, 1) : fi.highpass(1,nentry("up", 8000, 0, 20000, 10))*nentry("xf_up", -100, -100, 100, 1);
+filtre = fi.lowpass(1,200)*(-100) : fi.highpass(1,8000)*(100);
 
 pitchshifter = vgroup("Pitch", transpose(
                         nentry("window", 1000, 50, 10000, 1),
@@ -25,15 +25,8 @@ reverb = vgroup("Reverb", re.mono_freeverb(
                         nentry("spread", 0.5, 0, 1, 0.01)
                         )*nentry("xreverb", 0, -100, 100, 1));
 
-filtrehigh = fi.highpass(1,nentry("high", 800, 0, 20000, 1))*nentry("xhigh", 0, -100, 100, 1);
 
-//distortion = dm.cubicnl_demo;
 distortion = ef.cubicnl(nentry("drive", 0, 0, 1, 0.01),nentry("offset", 0, 0, 1, 0.01))*nentry("xdist", 0, -100, 100, 1);
-
-/*filtre1 = fi.bandpass(1,nentry("low1", 0, 0, 20000, 1),nentry("up1", 99, 0, 20000, 1))*nentry("x1", -5, -100, 100, 1);
-filtre2 = fi.bandpass(1,nentry("low2", 101, 0, 20000, 1),nentry("up2", 899, 0, 20000, 1))*nentry("x2", -12, -100, 100, 1);
-filtre3 = fi.bandpass(1,nentry("low3", 901, 0, 20000, 1),nentry("up3", 2499, 0, 20000, 1))*nentry("x3", -40, -100, 100, 1);
-equalizer = filtre1, filtre2, filtre3; */
 
 f1 = fi.bandpass(1,nentry("low1", 100, 0, 20000, 1),nentry("up1", 200, 0, 20000, 1))*nentry("x1", -12, -100, 100, 1);
 f2 = fi.bandpass(1,nentry("low2", 200, 0, 20000, 1),nentry("up2", 300, 0, 20000, 1))*nentry("x2", 1, -100, 100, 1);
