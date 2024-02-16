@@ -36,3 +36,19 @@ filtre3 = fi.bandpass(1,901,2499); //fi.bandpass(1,nentry("low3", 901, 0, 20000,
 equalizer = filtre1*(-5), filtre2*(-12), filtre3*(-40); //filtre1*nentry("x1", -5, -100, 100, 1), filtre2*nentry("x2", -12, -100, 100, 1), filtre3*nentry("x3", -40, -100, 100, 1); 
 
 process = _<: distortion <: equalizer :> _ <: pitchshifter <: _,_;
+
+//equalizer voix de podcast 
+f1 = fi.bandpass(1,100,200)*(-12);
+f2 = fi.bandpass(1,200,300);
+f3 = fi.bandpass(1,300,400)*(-3);
+f4 = fi.bandpass(1,400,700);
+f5 = fi.bandpass(1,700,1000)*3;
+f6 = fi.bandpass(1,1000,2000);
+f7 = fi.bandpass(1,2000,4000)*12;
+f8 = fi.bandpass(1,4000,10000)*2;
+f9 = fi.bandpass(1,10000,20000);
+
+f = f1,f2,f3,f4,f5,f6,f7,f8,f9;
+process = _<: f :> _ <: _,_;
+//process = _,_;
+// mixage voix podcast
