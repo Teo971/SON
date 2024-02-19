@@ -24,6 +24,8 @@ reverb = vgroup("Reverb", re.mono_freeverb(
                         nentry("spread", 0.5, 0, 1, 0.01)
                         ));
 
+reverb_p = reverb * nentry("gate",0,0,1,1);
+
 distortion = ef.cubicnl(nentry("drive", 0, 0, 1, 0.01),nentry("offset", 0, 0, 1, 0.01));
 
 f1 = fi.peak_eq(nentry("x1", -12, -100, 100, 1),nentry("f1", 150, 0, 20000, 1),nentry("bw1", 100, 0, 20000, 1));
@@ -38,4 +40,4 @@ f9 = fi.peak_eq(nentry("x9", 1, -100, 100, 1),nentry("f9", 15000, 0, 20000, 1),n
 
 eq = f1,f2,f3,f4,f5,f6,f7,f8,f9;
 
-process = _ <: distortion <: eq :> _ <: pitchshifter : reverb <: _,_;
+process = _ <: distortion <: eq :> _ <: pitchshifter<: _,_;
