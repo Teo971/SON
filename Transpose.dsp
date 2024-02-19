@@ -30,6 +30,17 @@ filtrehigh = fi.highpass(1,800); //fi.highpass(1,nentry("high", 800, 0, 20000, 1
 
 distortion = dm.cubicnl_demo; //cubicnl(nentry("drive", 0, 0, 1, 0.01),nentry("offset", 0, 0, 1, 0.01));
 
+cubicnl_demo = ba.bypass1(bp, ef.cubicnl_nodc(drive:si.smoo,offset:si.smoo))
+with{
+    cnl_group(x)  = vgroup("CUBIC NONLINEARITY cubicnl [tooltip: Reference:
+        https://ccrma.stanford.edu/~jos/pasp/Cubic_Soft_Clipper.html]", x);
+    bp = cnl_group(checkbox("[0] Bypass [tooltip: When this is checked, the
+        nonlinearity has no effect]"));
+    drive = cnl_group(hslider("[1] Drive [tooltip: Amount of distortion]",
+        0, 0, 1, 0.01));
+    offset = cnl_group(hslider("[2] Offset [tooltip: Brings in even harmonics]",
+        0, 0, 1, 0.01));
+};
 filtre1 = fi.bandpass(1,0,99); //fi.bandpass(1,nentry("low1", 0, 0, 20000, 1),nentry("up1", 99, 0, 20000, 1));
 filtre2 = fi.bandpass(1,101,899); //fi.bandpass(1,nentry("low2", 101, 0, 20000, 1),nentry("up2", 899, 0, 20000, 1));
 filtre3 = fi.bandpass(1,901,2499); //fi.bandpass(1,nentry("low3", 901, 0, 20000, 1),nentry("up3", 2499, 0, 20000, 1));
