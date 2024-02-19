@@ -10,34 +10,32 @@ with {
     d = i : (+ : +(w) : fmod(_,w)) ~ _;
 };
 
-filtre = fi.lowpass(1,200)*(-100) : fi.highpass(1,8000)*(100);
 
 pitchshifter = vgroup("Pitch", transpose(
                         nentry("window", 1000, 50, 10000, 1),
                         nentry("xfade", 10, 1, 10000, 1),
                         nentry("shift", 0, -12, +12, 0.1)
- )*nentry("xpitch", 0, -100, 100, 1));
+                    ));
 
 reverb = vgroup("Reverb", re.mono_freeverb(
                         nentry("fb1", 0, 0, 1, 0.01),
                         nentry("fb2", 0, 0, 1, 0.01),
                         nentry("damp", 0.5, 0, 1, 0.01),
                         nentry("spread", 0.5, 0, 1, 0.01)
-                        )*nentry("xreverb", 0, -100, 100, 1));
+                        ));
 
+distortion = ef.cubicnl(nentry("drive", 0, 0, 1, 0.01),nentry("offset", 0, 0, 1, 0.01));
 
-distortion = ef.cubicnl(nentry("drive", 0, 0, 1, 0.01),nentry("offset", 0, 0, 1, 0.01))*nentry("xdist", 0, -100, 100, 1);
-
-f1 = fi.bandpass(1,nentry("low1", 100, 0, 20000, 1),nentry("up1", 200, 0, 20000, 1))*nentry("x1", -12, -100, 100, 1);
-f2 = fi.bandpass(1,nentry("low2", 200, 0, 20000, 1),nentry("up2", 300, 0, 20000, 1))*nentry("x2", 1, -100, 100, 1);
-f3 = fi.bandpass(1,nentry("low3", 300, 0, 20000, 1),nentry("up3", 400, 0, 20000, 1))*nentry("x3", -3, -100, 100, 1);
-f4 = fi.bandpass(1,nentry("low4", 400, 0, 20000, 1),nentry("up4", 700, 0, 20000, 1))*nentry("x4", 1, -100, 100, 1);
-f5 = fi.bandpass(1,nentry("low5", 700, 0, 20000, 1),nentry("up5", 1000, 0, 20000, 1))*nentry("x5", 3, -100, 100, 1);
-f6 = fi.bandpass(1,nentry("low6", 1000, 0, 20000, 1),nentry("up6", 2000, 0, 20000, 1))*nentry("x6", 1, -100, 100, 1);
-f7 = fi.bandpass(1,nentry("low7", 2000, 0, 20000, 1),nentry("up7", 4000, 0, 20000, 1))*nentry("x7", 12, -100, 100, 1);
-f8 = fi.bandpass(1,nentry("low8", 4000, 0, 20000, 1),nentry("up8", 10000, 0, 20000, 1))*nentry("x8", 2, -100, 100, 1);
-f9 = fi.bandpass(1,nentry("low9", 10000, 0, 20000, 1),nentry("up9", 20000, 0, 20000, 1))*nentry("x9", 1, -100, 100, 1);
+f1 = fi.peak_eq(nentry("x1", -12, -100, 100, 1),nentry("f1", 150, 0, 20000, 1),nentry("bw1", 100, 0, 20000, 1));
+f2 = fi.peak_eq(nentry("x2", 1, -100, 100, 1),nentry("f2", 250, 0, 20000, 1),nentry("bw2", 100, 0, 20000, 1));
+f3 = fi.peak_eq(nentry("x3", -3, -100, 100, 1),nentry("f3", 350, 0, 20000, 1),nentry("bw3", 100, 0, 20000, 1));
+f4 = fi.peak_eq(nentry("x4", 1, -100, 100, 1),nentry("f4", 550, 0, 20000, 1),nentry("bw4", 300, 0, 20000, 1));
+f5 = fi.peak_eq(nentry("x5", 3, -100, 100, 1),nentry("f5", 850, 0, 20000, 1),nentry("bw5", 300, 0, 20000, 1));
+f6 = fi.peak_eq(nentry("x6", 1, -100, 100, 1),nentry("f6", 1500, 0, 20000, 1),nentry("bw6", 1000, 0, 20000, 1));
+f7 = fi.peak_eq(nentry("x7", 12, -100, 100, 1),nentry("f7", 3000, 0, 20000, 1),nentry("bw7", 2000, 0, 20000, 1));
+f8 = fi.peak_eq(nentry("x8", 2, -100, 100, 1),nentry("f8", 7000, 0, 20000, 1),nentry("bw8", 6000, 0, 20000, 1));
+f9 = fi.peak_eq(nentry("x9", 1, -100, 100, 1),nentry("f9", 15000, 0, 20000, 1),nentry("bw9", 10000, 0, 20000, 1));
 
 eq = f1,f2,f3,f4,f5,f6,f7,f8,f9;
 
-process = filtre <: distortion <: eq :> _ <: pitchshifter : reverb <: _,_;
+process = _ <: distortion <: eq :> _ <: pitchshifter : reverb <: _,_;
