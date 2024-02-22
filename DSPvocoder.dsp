@@ -17,15 +17,6 @@ pitchshifter = vgroup("Pitch", transpose(
                         nentry("shift", 0, -12, +12, 0.1)
                     ));
 
-reverb = vgroup("Reverb", re.mono_freeverb(
-                        nentry("fb1", 0, 0, 1, 0.01),
-                        nentry("fb2", 0, 0, 1, 0.01),
-                        nentry("damp", 0.5, 0, 1, 0.01),
-                        nentry("spread", 0.5, 0, 1, 0.01)
-                        ));
-
-reverb_p = reverb * nentry("gate",0,0,1,1);
-
 distortion = ef.cubicnl(nentry("drive", 0, 0, 1, 0.01),nentry("offset", 0, 0, 1, 0.01));
 
 f1 = fi.peak_eq(nentry("x1", -12, -100, 100, 1),nentry("f1", 150, 0, 20000, 1),nentry("bw1", 100, 0, 20000, 1));
