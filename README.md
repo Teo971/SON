@@ -1,24 +1,7 @@
-# SON
-Objectifs:
+# Projet Vocoder
 
-- Modifier le pitch
-- Modifier la longueur d'une note/fréquence
-- Modifier le timbre ( reste à savoir comment)
-- Objectifs partie 1:
-  - Faire des effets de voix très basiques du genre: réduction bruit de fond, application de filtre
-- Objectifs partie 2:
-  - Pouvoir incorporer différents programmes dans le teensy
-- Objectifs partie 3:
-  - Jouer avec les canaux pour varier les effets
-  - Réussir à récupérer les paramètres d'une voix pour la cloner au mieux possible (reste à savoir si c'est possible sans IA)
+## Projet
+Le code C++ à téléverser (*vocoder.ino*), ainsi que les fichiers .h et .cpp utilisés par ce code, sont dans le dossier vocoder. Le fichier *dspVocoder.dsp* correspond au code Faust à l'origine des fichier .h et .cpp du DSP.
 
-- Pour les presets utiliser un potentiomètre
-- pour le volume un potentiometre,
-- Bonus: bouton pour couper le son.
-# BUT FINAL
-Réussir à faire différents effets de voix(radio, films années 80, robots...)
-
-
-## Voix vieux ciné
-Si tu veux retrouver le "son" des années 50, il suffit (?) de tenir compte de l'effet de la courbe académique propre à la bande ciné optique, soit une atténuation des fréquences aigues à partir de 4 kHz avec une pente de 6 dBs par octave. L'effet peut être renforcé en boostant un peu la partie médium du spectre vers 2 kHz. Pour faire plus vrai, ajouter une pincée de grattes genre griffes vinyl ou pourquoi pas carrément des drops.
-
+## Poster 
+Le fichier .pdf du poster est le fichier *Rendu poster ASDS G3_FRANCILLETTEtéo_CHARTONthalia.pdf*.
